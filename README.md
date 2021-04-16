@@ -19,10 +19,9 @@ For reward optimization, we found a stable ranking-based sequence-level loss per
 ## How it works
 
 We propose to use the following *contrastive-margin loss*, which is a pairwise ranking loss that differentiates two candidates with the best and worst rewrad in a candidate space. The loss has the following form:
+<img align="center" src="https://user-images.githubusercontent.com/1029280/114988251-173a9200-9ed1-11eb-8180-b59d839a876a.png" />
 
-![ql_7edeb1222c0f688ee1100129c0ae120c_l3](https://user-images.githubusercontent.com/1029280/114988251-173a9200-9ed1-11eb-8180-b59d839a876a.png)
-
-Here, ![ql_69480ecf125de512baaae19eee3ac7ab_l3](https://user-images.githubusercontent.com/1029280/114988978-edce3600-9ed1-11eb-87c8-6331ed4b661f.png) is the reward function. After we obtain a set of candidates using beam search, ![ql_9fbd1e8e69cb5b6061fb4bf273485b6d_l3](https://user-images.githubusercontent.com/1029280/114988981-ee66cc80-9ed1-11eb-9986-51154469fbc8.png) denotes the candidate with the best reward. ![ql_c06661d77e2e10c2d1f7b60157aa98de_l3](https://user-images.githubusercontent.com/1029280/114988983-eeff6300-9ed1-11eb-832f-cc99d3bc1b58.png) is the candidate with the worst reward.
+Here, ![ql_69480ecf125de512baaae19eee3ac7ab_l3](https://user-images.githubusercontent.com/1029280/114988978-edce3600-9ed1-11eb-87c8-6331ed4b661f.png) is the reward function. After we obtain a set of candidates using beam search,  ![ql_c06661d77e2e10c2d1f7b60157aa98de_l3](https://user-images.githubusercontent.com/1029280/114988983-eeff6300-9ed1-11eb-832f-cc99d3bc1b58.png) denotes the candidate with the best reward. ![ql_9fbd1e8e69cb5b6061fb4bf273485b6d_l3](https://user-images.githubusercontent.com/1029280/114988981-ee66cc80-9ed1-11eb-9986-51154469fbc8.png) is the candidate with the worst reward.
 
 
 
