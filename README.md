@@ -6,14 +6,28 @@ This is our official code repository of our proposed NMT training algorithm, Met
 
 ## About the Paper ##
 
-* We propose a constrastive-margin loss that enables fast and stable reward optimization with large NMT and metric models
+* We propose a *constrastive-margin loss* that enables fast and stable reward optimization with large NMT and metric models. 
 * On multiple translation pairs, We found that the reward optimization with BLEURT is able to boost the score significantly, allowing the NMT to generate more adaquate and fluent translations and score better in human evaluations.
 
-Neural machine translation (NMT) models are conventionally trained with token-level negative log-likelihood (NLL), which does not guarantee that the generated translations will be optimized for a selected sequence-level evaluation metric. Multiple approaches are proposed to train NMT with BLEU as the reward, in order to directly improve the metric. However, it was reported that the gain in BLEU does not translate to real quality improvement, limiting the application in industry. Recently, it became clear to the community that BLEU has a low correlation with human judgment when dealing with state-of-the-art models. This leads to the emerging of model-based evaluation metrics. These new metrics are shown to have a much higher human correlation. In this paper, we investigate whether it is beneficial to optimize NMT models with the state-of-the-art model-based metric, BLEURT. We propose a contrastive-margin loss for fast and stable reward optimization suitable for large NMT models. In experiments, we perform automatic and human evaluations to compare models trained with smoothed BLEU and BLEURT to the baseline models. Results show that the reward optimization with BLEURT is able to increase the metric scores by a large margin, in contrast to limited gain when training with smoothed BLEU. The human evaluation shows that models trained with BLEURT improve adequacy and coverage of translations.
+Neural machine translation (NMT) models are conventionally trained with token-level negative log-likelihood (NLL), which does not guarantee that the generated translations will be optimized for a selected sequence-level evaluation metric. Multiple approaches are proposed to train NMT with BLEU as the reward, in order to directly improve the metric. However, it was reported that the gain in BLEU does not translate to real quality improvement, limiting the application in industry. 
+
+Recently, it became clear to the community that BLEU has a low correlation with human judgment when dealing with state-of-the-art models. This leads to the emerging of model-based evaluation metrics. [These new metrics are shown to have a much higher human correlation.](https://ai.googleblog.com/2020/05/evaluating-natural-language-generation.html)
+
+In our work, we investigate whether it is beneficial to optimize NMT models with the state-of-the-art model-based metric, BLEURT. We propose a contrastive-margin loss for fast and stable reward optimization suitable for large NMT models:
+
+![Contrastive-Margin Loss](https://user-images.githubusercontent.com/73585370/114983109-2cacbd80-9ecb-11eb-9f04-661b1d468f03.png)
+
+We perform automatic and human evaluations to compare models trained with smoothed BLEU and BLEURT to the baseline models. Results show that the reward optimization with BLEURT is able to increase the metric scores by a large margin, in contrast to limited gain when training with smoothed BLEU. Our human evaluation on multiple criteria shows that models trained with BLEURT improve translations.
+
+![Automatic Evaluation](https://user-images.githubusercontent.com/73585370/114983594-c5dbd400-9ecb-11eb-9996-dbe40010f57f.png)
+
+![Human Evaluation](https://user-images.githubusercontent.com/73585370/114983685-e1df7580-9ecb-11eb-8fde-a157de9b2aec.png)
+
+Our method can be applied to any MT metrics (including non-differentiable ones) highly correlated with human judgments. We invite others to try our method with various metrics!
 
 ## Getting Started ##
 
-The code to reproduce our method will be released soon!
+We will release the source code to reproduce our method very soon. Stay tuned!
 
 ## Citing our Work ##
 
