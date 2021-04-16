@@ -17,9 +17,11 @@ In our work, we investigate whether it is beneficial to optimize NMT models with
 
 ![Contrastive-Margin Loss](https://user-images.githubusercontent.com/73585370/114983109-2cacbd80-9ecb-11eb-9f04-661b1d468f03.png)
 
-We perform automatic and human evaluations to compare models trained with smoothed BLEU and BLEURT to the baseline models. Results show that the reward optimization with BLEURT is able to increase the metric scores by a large margin, in contrast to limited gain when training with smoothed BLEU. Our human evaluation on multiple criteria shows that models trained with BLEURT improve translations.
+We perform automatic and human evaluations to compare models trained with smoothed BLEU and BLEURT to the baseline models. The automatic evaluation results show that the reward optimization with BLEURT is able to increase the metric scores by a large margin, in contrast to limited gain when training with smoothed BLEU:
 
 ![Automatic Evaluation](https://user-images.githubusercontent.com/73585370/114983594-c5dbd400-9ecb-11eb-9996-dbe40010f57f.png)
+
+Our human evaluation on multiple criteria also shows that models trained with BLEURT improve translations, making them appear more natural to human judges:
 
 ![Human Evaluation](https://user-images.githubusercontent.com/73585370/114983685-e1df7580-9ecb-11eb-8fde-a157de9b2aec.png)
 
