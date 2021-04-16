@@ -1,21 +1,32 @@
-# Reward Optimization for Neural Machine Translation with Learned Metrics
+# MetricMT - Reward Optimization for Neural Machine Translation with Learned Metrics
 
-This is our official code repository of our proposed NMT training algorithm, MetricMT. ([arxiv](https://arxiv.org/abs/2104.07541))
+This is our official code repository. To read the paper, please see ([arxiv](https://arxiv.org/abs/2104.07541)).
 
 **Authors**: Raphael Shu, Kang Min Yoo, Jung-Woo Ha (NAVER AI Lab)
 
-## About the Paper ##
+## What is it about
 
-* We propose a *constrastive-margin loss* that enables fast and stable reward optimization with large NMT and metric models. 
-* On multiple translation pairs, We found that the reward optimization with BLEURT is able to boost the score significantly, allowing the NMT to generate more adaquate and fluent translations and score better in human evaluations.
+In short, we optimize NMT models with the state-of-the-art metric, [BLEURT](https://ai.googleblog.com/2020/05/evaluating-natural-language-generation.html), and found the translations to have higher adequacy and coverage compared to both the baseline and models trained with BLEU.
 
-Neural machine translation (NMT) models are conventionally trained with token-level negative log-likelihood (NLL), which does not guarantee that the generated translations will be optimized for a selected sequence-level evaluation metric. Multiple approaches are proposed to train NMT with BLEU as the reward, in order to directly improve the metric. However, it was reported that the gain in BLEU does not translate to real quality improvement, limiting the application in industry. 
+In machine translation, BLEU has been a dominating evaluation metric for years. However, the criticism on BLEU dates back as early as 2006 [(Callison-Burch et al., 2006)](https://www.aclweb.org/anthology/E06-1032.pdf). The best overall paper of ACL 2020 [(Mathur, 2020)](https://www.aclweb.org/anthology/2020.acl-main.448.pdf) again shows that BLEU's correlation with human drops to zero or negative territory when comparing only a few top tier systems. The author calls for stopping the use of BLEU in the paper.
 
-Recently, it became clear to the community that BLEU has a low correlation with human judgment when dealing with state-of-the-art models. This leads to the emerging of model-based evaluation metrics. [These new metrics are shown to have a much higher human correlation.](https://ai.googleblog.com/2020/05/evaluating-natural-language-generation.html)
+Recently, several model-based metrics are proposed (ESIM, Yisi-1, BERTScore, BLEURT). They are all using or building with BERT. These metrics typically achieve much higher human correlation by tuning themselves with human judgment data.
 
-In our work, we investigate whether it is beneficial to optimize NMT models with the state-of-the-art model-based metric, BLEURT. We propose a contrastive-margin loss for fast and stable reward optimization suitable for large NMT models:
+In our paper, we attempt to directly optimize NMT models with the state-of-the-art learned metric, BLEURT. The benefit is obvious, as BLEURT is tuned with human scores, it can potentially reflect human preference on translation quality.
 
-![Contrastive-Margin Loss](https://user-images.githubusercontent.com/73585370/114983109-2cacbd80-9ecb-11eb-9f04-661b1d468f03.png)
+For reward optimization, we found a stable ranking-based sequence-level loss performs well and is suitable to use with large NMT and metric models.
+
+## How it works
+
+We propose to use the following *contrastive-margin loss*, which is a pairwise ranking loss that differentiates two candidates with the best and worst rewrad in a candidate space. The loss has the following form:
+
+![ql_7edeb1222c0f688ee1100129c0ae120c_l3](https://user-images.githubusercontent.com/1029280/114988251-173a9200-9ed1-11eb-8180-b59d839a876a.png)
+
+Here, ![ql_69480ecf125de512baaae19eee3ac7ab_l3](https://user-images.githubusercontent.com/1029280/114988978-edce3600-9ed1-11eb-87c8-6331ed4b661f.png) is the reward function. After we obtain a set of candidates using beam search, ![ql_9fbd1e8e69cb5b6061fb4bf273485b6d_l3](https://user-images.githubusercontent.com/1029280/114988981-ee66cc80-9ed1-11eb-9986-51154469fbc8.png) denotes the candidate with the best reward. ![ql_c06661d77e2e10c2d1f7b60157aa98de_l3](https://user-images.githubusercontent.com/1029280/114988983-eeff6300-9ed1-11eb-832f-cc99d3bc1b58.png) is the candidate with the worst reward.
+
+
+
+## Results
 
 We perform automatic and human evaluations to compare models trained with smoothed BLEU and BLEURT to the baseline models. The automatic evaluation results show that the reward optimization with BLEURT is able to increase the metric scores by a large margin, in contrast to limited gain when training with smoothed BLEU:
 
