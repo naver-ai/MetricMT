@@ -2,7 +2,7 @@
 
 This is our official code repository. To read the paper, please see ([arxiv](https://arxiv.org/abs/2104.07541)).
 
-**Authors**: Raphael Shu, Kang Min Yoo, Jung-Woo Ha (NAVER AI Lab)
+**Authors**: Raphael Shu, Kang Min Yoo and Jung-Woo Ha (NAVER AI Lab)
 
 ## What is it about
 
@@ -31,9 +31,9 @@ This reward optimizing loss has a lower memory footprint comparing with risk min
 
 ## Results
 
-We perform automatic and human evaluations to compare optimized models with the baselines. The experiments are conducted on German-English, Romanian-English, Russian-English and Japanese-English datasets. They are all to-English datasets as the pretraiend BLEURT is for English language.
+We perform automatic and human evaluations to compare optimized models with the baselines. The experiments are conducted on German-English, Romanian-English, Russian-English and Japanese-English datasets. They are all to-English datasets as the pretrained BLEURT is for English language.
 
-The results are interesting. In three over four langiage pairs, we found BLEURT is significantly increased after optimizing it, however, this optimization hurts BLEU. Here are the automatic scores:
+The results are interesting. In three over four language pairs, we found BLEURT is significantly increased after optimizing it, however, this optimization hurts BLEU. Here are the automatic scores:
 
 ![Automatic Evaluation](https://user-images.githubusercontent.com/73585370/114983594-c5dbd400-9ecb-11eb-9996-dbe40010f57f.png)
 
@@ -41,7 +41,7 @@ Then we performed pairwise human evaluation on three criteria: adequacy, fluency
 
 <img width="607" alt="Human evaluation" src="https://user-images.githubusercontent.com/1029280/114990716-c4160e80-9ed3-11eb-9c13-e6f5fab084a5.png">
 
-We can see that the BLEURT optimized model tends to have better adequacy and coverage, and it performs better than models trained with smoothed BLEU. For fluency, annotators didn't find much difference overall, which may indicate the NLL loss is already good at improving fluency. Please check our paper for more details on evaluation. 
+We can see that the BLEURT optimized model tends to have better adequacy and coverage, and it performs better than models trained with smoothed BLEU. For fluency, annotators didn't find much difference overall, which may indicate the NLL loss is already good at improving fluency. Please check our paper for more details. 
 
 ## Getting Started ##
 
