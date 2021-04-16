@@ -12,7 +12,7 @@ In machine translation, BLEU has been a dominating evaluation metric for years. 
 
 Recently, several model-based metrics are proposed (ESIM, Yisi-1, BERTScore, BLEURT). They are all using or building with BERT. These metrics typically achieve much higher human correlation by tuning themselves with human judgment data.
 
-In our paper, we attempt to directly optimize NMT models with the state-of-the-art learned metric, BLEURT. The benefit is obvious, as BLEURT is tuned with human scores, it can potentially reflect human preference on translation quality.
+In our paper, we attempt to directly optimize NMT models with the state-of-the-art learned metric, BLEURT. The benefit is obvious, as BLEURT is tuned with human scores, it can potentially reflect human preference on translation quality. We want to know whether the training just changes the NMT parameter to hack the metric, or it yields meaningful improvement.
 
 For reward optimization, we found a stable ranking-based sequence-level loss performs well and is suitable to use with large NMT and metric models.
 
@@ -21,26 +21,31 @@ For reward optimization, we found a stable ranking-based sequence-level loss per
 We propose to use the following *contrastive-margin loss*, which is a pairwise ranking loss that differentiates two candidates with the best and worst rewrad in a candidate space. The loss has the following form:
 
 <p align="center">
-<img align="center" src="https://user-images.githubusercontent.com/1029280/114988251-173a9200-9ed1-11eb-8180-b59d839a876a.png" />
-    </p>
+   <img align="center" src="https://user-images.githubusercontent.com/1029280/114988251-173a9200-9ed1-11eb-8180-b59d839a876a.png" />
+</p>
 
 Here, ![ql_69480ecf125de512baaae19eee3ac7ab_l3](https://user-images.githubusercontent.com/1029280/114988978-edce3600-9ed1-11eb-87c8-6331ed4b661f.png) is the reward function. After we obtain a set of candidates using beam search,  ![ql_c06661d77e2e10c2d1f7b60157aa98de_l3](https://user-images.githubusercontent.com/1029280/114988983-eeff6300-9ed1-11eb-832f-cc99d3bc1b58.png) denotes the candidate with the best reward. ![ql_9fbd1e8e69cb5b6061fb4bf273485b6d_l3](https://user-images.githubusercontent.com/1029280/114988981-ee66cc80-9ed1-11eb-9986-51154469fbc8.png) is the candidate with the worst reward.
 
+This reward optimizing loss has a lower memory footprint comparing with risk minimization loss, and is more stable than REINFORCE and max-margin loss. In the paper, we show this loss can effectively optimize both smoothed BLEU and BLEURT as rewards.
 
 
 ## Results
 
-We perform automatic and human evaluations to compare models trained with smoothed BLEU and BLEURT to the baseline models. The automatic evaluation results show that the reward optimization with BLEURT is able to increase the metric scores by a large margin, in contrast to limited gain when training with smoothed BLEU:
+We perform automatic and human evaluations to compare optimized models with the baselines. The experiments are conducted on German-English, Romanian-English, Russian-English and Japanese-English datasets. They are all to-English datasets as the pretraiend BLEURT is for English language.
+
+The results are interesting. In three over four langiage pairs, we found BLEURT is significantly increased after optimizing it, however, this optimization hurts BLEU. Here are the automatic scores:
 
 ![Automatic Evaluation](https://user-images.githubusercontent.com/73585370/114983594-c5dbd400-9ecb-11eb-9996-dbe40010f57f.png)
 
-Our human evaluation on multiple criteria also shows that models trained with BLEURT improve translations, making them appear more natural to human judges:
+Then we performed pairwise human evaluation on three criteria: adequacy, fluency and coverage. These are the results
 
-![Human Evaluation](https://user-images.githubusercontent.com/73585370/114983685-e1df7580-9ecb-11eb-8fde-a157de9b2aec.png)
+<img width="607" alt="Human evaluation" src="https://user-images.githubusercontent.com/1029280/114990716-c4160e80-9ed3-11eb-9c13-e6f5fab084a5.png">
 
-Our method can be applied to any MT metrics (including non-differentiable ones) highly correlated with human judgments. We invite others to try our method with various metrics!
+We can see that the BLEURT optimized model tends to have better adequacy and coverage, and it performs better than models trained with smoothed BLEU. For fluency, annotators didn't find much difference overall, which may indicate the NLL loss is already good at improving fluency. Please check our paper for more details on evaluation. 
 
 ## Getting Started ##
+
+Our method can be applied to any MT metrics (including non-differentiable ones) for improving human perceived quality. We invite others to try our method with various metrics!
 
 We will release the source code to reproduce our method very soon. Stay tuned!
 
