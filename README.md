@@ -35,11 +35,15 @@ We perform automatic and human evaluations to compare optimized models with the 
 
 The results are interesting. In three over four language pairs, we found BLEURT is significantly increased after optimizing it, however, this optimization hurts BLEU. Here are the automatic scores:
 
-![Automatic Evaluation](https://user-images.githubusercontent.com/73585370/114983594-c5dbd400-9ecb-11eb-9996-dbe40010f57f.png)
+<p align="center">
+<img width="663" alt="Automatic Evaluation" src="https://user-images.githubusercontent.com/1029280/114991517-a1382a00-9ed4-11eb-94ed-e21fb727ced1.png">
+</p>
 
 Then we performed pairwise human evaluation on three criteria: adequacy, fluency and coverage. These are the results
 
-<img width="607" alt="Human evaluation" src="https://user-images.githubusercontent.com/1029280/114990716-c4160e80-9ed3-11eb-9c13-e6f5fab084a5.png">
+<p align="center">
+<img width="607" alt="Human Evaluation" src="https://user-images.githubusercontent.com/1029280/114990716-c4160e80-9ed3-11eb-9c13-e6f5fab084a5.png">
+</p>
 
 We can see that the BLEURT optimized model tends to have better adequacy and coverage, and it performs better than models trained with smoothed BLEU. For fluency, annotators didn't find much difference overall, which may indicate the NLL loss is already good at improving fluency. Please check our paper for more details. 
 
