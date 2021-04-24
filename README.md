@@ -2,7 +2,7 @@
 
 This is our official code repository. To read the paper, please see ([arxiv](https://arxiv.org/abs/2104.07541)).
 
-**Authors**: Raphael Shu, Kang Min Yoo and Jung-Woo Ha (NAVER AI Lab)
+**Authors**: Raphael Shu, Kang Min Yoo and [Jung-Woo Ha](https://github.com/jungwoo-ha) (NAVER AI Lab)
 
 ## What is it about
 
